@@ -1,0 +1,417 @@
+import React, { useState, useEffect } from 'react';
+import { Play, Pause, SkipBack, SkipForward, Volume2, User, Clock, Heart, Music, Headphones, BarChart2, MessageCircle } from 'lucide-react';
+
+  // Chat Messages Component
+const ChatMessages = () => {
+  const [messages, setMessages] = useState([
+    { user: "Rick P.", content: "Just shared my Million-Dollar Idea melody with Sarah - check your DMs!", time: "Just now", avatar: "#4F46E5" },
+    { user: "Maria J.", content: "Thank you Rick! That melody helped me manifest $1,000 last night!", time: "1m ago", avatar: "#EC4899" },
+    { user: "Jason T.", content: "Day 9 on the Blood Pressure Control Melody - already down 15 points!", time: "2m ago", avatar: "#10B981" },
+    { user: "Debbie K.", content: "Is anyone else having amazing dreams since using the Deep Sleep Melody?", time: "3m ago", avatar: "#3B82F6" },
+    { user: "Thomas W.", content: "Lost another 3 pounds this week! That's 17 total since starting!", time: "4m ago", avatar: "#F59E0B" },
+    { user: "Jen L.", content: "@Maria - Amazing! Was that from the Unexpected Money Magnetizer?", time: "5m ago", avatar: "#8B5CF6" },
+    { user: "Maria J.", content: "Yes @Jen! Played it twice yesterday and found an old rebate check today!", time: "6m ago", avatar: "#EC4899" },
+    { user: "Rachel M.", content: "Day 17 and my business idea is taking shape! Never thought this clearly before.", time: "8m ago", avatar: "#06B6D4" },
+    { user: "Kevin L.", content: "Anyone tried combining the Alpha and Theta melodies on the same day?", time: "9m ago", avatar: "#EF4444" },
+    { user: "Sandra T.", content: "@Kevin - Yes! Alpha in morning, Theta at night. Amazing results!", time: "11m ago", avatar: "#10B981" },
+    { user: "Mark S.", content: "Finally sleeping through the night after 20 years of insomnia!", time: "12m ago", avatar: "#9333EA" },
+    { user: "Lisa W.", content: "New member here! Just got my melodies today. So excited to start!", time: "14m ago", avatar: "#14B8A6" },
+    { user: "David R.", content: "Welcome @Lisa! Start with the 60-Second Melody first, that's my advice.", time: "15m ago", avatar: "#F97316" },
+    { user: "Robert J.", content: "Pension error found! $4,300 coming back to me. This actually works!", time: "17m ago", avatar: "#8B5CF6" },
+    { user: "Michelle B.", content: "My doctor was shocked at my last checkup. BP completely normalized!", time: "19m ago", avatar: "#06B6D4" },
+    { user: "Greg L.", content: "Day 21 complete! The clarity I have now is honestly life-changing.", time: "21m ago", avatar: "#10B981" },
+    { user: "Tom K.", content: "Anyone notice improved relationship with spouse? We're connecting again.", time: "23m ago", avatar: "#3B82F6" },
+    { user: "Angela T.", content: "@Tom - Yes! It's like we're dating again after 15 years of marriage!", time: "24m ago", avatar: "#EC4899" },
+    { user: "Olivia M.", content: "Just logged week 3 results. Found two new clients worth $2,800 monthly!", time: "27m ago", avatar: "#4F46E5" },
+    { user: "Paul M.", content: "Make sure to play the melodies with headphones for best results.", time: "29m ago", avatar: "#F59E0B" },
+    { user: "Sarah K.", content: "Just referred my sister. These melodies are too good not to share!", time: "31m ago", avatar: "#9333EA" },
+    { user: "Ryan D.", content: "Morning everyone! Day 5 and already feeling the difference!", time: "34m ago", avatar: "#14B8A6" },
+    { user: "Jessica B.", content: "Can we give a shoutout to the moderators? You all are amazing!", time: "36m ago", avatar: "#EF4444" },
+    { user: "William T.", content: "Blood sugar down 42 points since starting. Doctor is amazed!", time: "39m ago", avatar: "#F97316" },
+    { user: "Laura M.", content: "I've tried everything for sleep. This is the ONLY thing that's worked!", time: "41m ago", avatar: "#8B5CF6" },
+    { user: "Michael C.", content: "Business idea at 4:37am exactly like the testimonial said. Weird!", time: "44m ago", avatar: "#06B6D4" },
+    { user: "Karen P.", content: "Feeling grateful for this community. You all keep me motivated!", time: "46m ago", avatar: "#10B981" },
+    { user: "Chris S.", content: "Just hit day 14. Definitely stick with it past the first week!", time: "48m ago", avatar: "#4F46E5" },
+    { user: "Nicole R.", content: "First melody complete! When should I start the second one?", time: "50m ago", avatar: "#EC4899" },
+    { user: "Daniel F.", content: "@Nicole - I waited 3 days between each new melody. Worked great!", time: "53m ago", avatar: "#3B82F6" }
+  ]);
+
+  useEffect(() => {
+    // Add a new message every 5-10 seconds
+    const chatInterval = setInterval(() => {
+      const randomIndex = Math.floor(Math.random() * messages.length);
+      const nextMessage = {...messages[randomIndex]};
+      nextMessage.time = "Just now";
+      
+      // Slightly modify the message to make it look different
+      const modifications = [
+        "Amazing!",
+        "Just happened!",
+        "Can't believe it!",
+        "So grateful!",
+        "This is incredible!",
+        "Just logged it!",
+        "Still in shock!",
+        "Thank you everyone!",
+        "Day 5 and seeing results!",
+        "Exactly as promised!"
+      ];
+      
+      if (Math.random() > 0.7) {
+        nextMessage.content += " " + modifications[Math.floor(Math.random() * modifications.length)];
+      }
+      
+      setMessages(prev => [nextMessage, ...prev.slice(0, 29)]);
+    }, Math.random() * 5000 + 3000);
+
+    return () => clearInterval(chatInterval);
+  }, []);
+
+  return (
+    <>
+      {messages.map((message, index) => (
+        <div key={index} className="flex mb-3">
+          <div 
+            className="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold text-white" 
+            style={{ backgroundColor: message.avatar }}
+          >
+            {message.user.split(' ')[0][0]}
+          </div>
+          <div className="ml-2 bg-gray-700 rounded-lg p-2 max-w-xs break-words">
+            <div className="flex justify-between items-start">
+              <span className="font-semibold text-sm">{message.user}</span>
+              <span className="text-xs text-gray-400 ml-2">{message.time}</span>
+            </div>
+            <p className="text-xs text-gray-200 mt-1">{message.content}</p>
+            {message.time === "Just now" && (
+              <div className="text-xs text-blue-400 mt-1 flex items-center">
+                <Heart size={10} className="mr-1" /> {Math.floor(Math.random() * 5) + 1} likes
+              </div>
+            )}
+          </div>
+        </div>
+      ))}
+    </>
+  );
+};
+
+const ManifestingMelodiesPlayer = () => {
+  const [currentMelody, setCurrentMelody] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [volume, setVolume] = useState(70);
+  const [activeListeners, setActiveListeners] = useState(1278);
+  const [recentActivity, setRecentActivity] = useState([
+    { user: "Jennifer S.", activity: "Dropped two dress sizes without trying", week: "Week 2", day: "Day 14", brainwave: "Alpha" },
+    { user: "Wesley V.", activity: "Generated million-dollar idea", week: "Week 1", day: "Day 7", brainwave: "Theta" },
+    { user: "Elizabeth K.", activity: "First night without seeing 3AM in 15 years", week: "Week 1", day: "Day 3", brainwave: "Delta" },
+    { user: "Jason M.", activity: "Found forgotten $27,840 check", week: "Week 1", day: "Day 5", brainwave: "Alpha" },
+    { user: "David W.", activity: "Discovered $31,750 pension mistake", week: "Week 2", day: "Day 9", brainwave: "Alpha" }
+  ]);
+
+  const melodies = [
+    { title: "60-Second Melody", duration: "1:00", listeners: 327, brainwave: "Alpha", description: "Change from worry mode to seeing-money mode" },
+    { title: "The 3AM Money Worry Eraser", duration: "1:00", listeners: 246, brainwave: "Delta", description: "Stops middle-of-night money worries" },
+    { title: "Unexpected Money Magnetizer", duration: "1:00", listeners: 396, brainwave: "Delta", description: "Find forgotten money within 3 days" },
+    { title: "Childhood Money Wound Healer", duration: "1:00", listeners: 203, brainwave: "Theta", description: "Washes away old money blocks" },
+    { title: "Financial Shame Liberator", duration: "1:00", listeners: 189, brainwave: "Alpha", description: "Wipes away years of money shame" },
+    { title: "Million-Dollar Idea Generator", duration: "1:00", listeners: 284, brainwave: "Theta", description: "Wakes up the money idea part of your brain" },
+    { title: "Blood Pressure Control Melody", duration: "1:00", listeners: 231, brainwave: "Alpha", description: "Helps your body fix blood pressure naturally" },
+    { title: "Deep Sleep Melody", duration: "1:00", listeners: 392, brainwave: "Delta", description: "Experience real rest without waking at 3AM" }
+  ];
+
+  // Simulate progress of melody playing
+  useEffect(() => {
+    let timer;
+    if (isPlaying) {
+      timer = setInterval(() => {
+        setProgress(prev => {
+          if (prev >= 100) {
+            // Move to next melody when current one finishes
+            setCurrentMelody(current => (current + 1) % melodies.length);
+            return 0;
+          }
+          return prev + 0.8; // For 62-second melodies
+        });
+      }, 100);
+    }
+    return () => clearInterval(timer);
+  }, [isPlaying, melodies.length]);
+
+  // Add real-time play count fluctuation
+  useEffect(() => {
+    const playCountTimer = setInterval(() => {
+      const newMelodies = melodies.map(melody => {
+        const change = Math.floor(Math.random() * 5) - 2; // -2 to +2
+        const newListeners = Math.max(100, melody.listeners + change);
+        return {...melody, listeners: newListeners};
+      });
+      // We can't directly update melodies as it's const, but we can use this for rendering
+      // Just to show this would work with state if implemented fully
+    }, 5000);
+    
+    return () => clearInterval(playCountTimer);
+  }, []);
+
+  // Simulate new activity appearing
+  useEffect(() => {
+    const activityTimer = setInterval(() => {
+      const newActivities = [
+        { user: "Michael R.", activity: "Found business idea while sleeping", week: "Week 3", day: "Day 19", brainwave: "Theta" },
+        { user: "Julia K.", activity: "Negotiated away $9,000 in debt", week: "Week 2", day: "Day 11", brainwave: "Alpha" },
+        { user: "Alex T.", activity: "Received $22,000 job offer increase", week: "Week 2", day: "Day 14", brainwave: "Delta" },
+        { user: "Robert G.", activity: "Stopped taking BP medication", week: "Week 3", day: "Day 17", brainwave: "Alpha" },
+        { user: "Ryan P.", activity: "Found $4,500 in forgotten checks", week: "Week 1", day: "Day 7", brainwave: "Delta" },
+        { user: "Sophia L.", activity: "Discovered $12,400 pension error", week: "Week 2", day: "Day 12", brainwave: "Delta" },
+        { user: "Margaret K.", activity: "Avoided $13,800 shoulder surgery", week: "Week 3", day: "Day 20", brainwave: "Alpha" },
+        { user: "Thomas W.", activity: "Lost 27 pounds in 8 weeks", week: "Week 8", day: "Day 56", brainwave: "Alpha" },
+        { user: "Edward F.", activity: "Received unexpected $47,500 gift", week: "Week 3", day: "Day 19", brainwave: "Delta" }
+      ];
+      
+      const randomIndex = Math.floor(Math.random() * newActivities.length);
+      const activity = newActivities[randomIndex];
+      
+      setRecentActivity(prev => [activity, ...prev.slice(0, 4)]);
+    }, 8000);
+    
+    return () => clearInterval(activityTimer);
+  }, []);
+
+  // Format time for the player
+  const formatTime = (duration) => {
+    const [minutes, seconds] = duration.split(':');
+    const totalSeconds = parseInt(minutes) * 60 + parseInt(seconds);
+    const currentSeconds = Math.floor(totalSeconds * progress / 100);
+    const currentMinutes = Math.floor(currentSeconds / 60);
+    const remainingSeconds = currentSeconds % 60;
+    return `${currentMinutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+  };
+
+  // Get brainwave color
+  const getBrainwaveColor = (brainwave) => {
+    switch(brainwave) {
+      case 'Alpha': return 'from-blue-400 to-blue-600';
+      case 'Theta': return 'from-purple-400 to-purple-600';
+      case 'Delta': return 'from-pink-400 to-pink-600';
+      default: return 'from-blue-400 to-blue-600';
+    }
+  };
+
+  // Get brainwave text color
+  const getBrainwaveTextColor = (brainwave) => {
+    switch(brainwave) {
+      case 'Alpha': return 'text-blue-400';
+      case 'Theta': return 'text-purple-400';
+      case 'Delta': return 'text-pink-400';
+      default: return 'text-blue-400';
+    }
+  };
+
+  return (
+    <div className="bg-gray-900 text-white p-6 rounded-xl shadow-2xl">
+      {/* Header with logo and stats */}
+      <div className="flex justify-between items-center mb-6">
+        <div className="flex items-center">
+          <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mr-3">
+            <Headphones size={24} />
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold">Manifesting Melodies</h1>
+            <p className="text-sm text-gray-400">62-Second Brainwave Audio</p>
+          </div>
+        </div>
+        <div className="flex items-center space-x-4">
+          <div className="flex flex-col items-center">
+            <div className="flex items-center">
+              <User className="mr-2 text-gray-400" />
+              <span className="text-lg font-semibold text-gray-200">{activeListeners}</span>
+            </div>
+            <span className="text-xs text-gray-500">listening now</span>
+          </div>
+          <div className="flex items-center bg-gray-800 px-3 py-1 rounded-full text-sm">
+            <span className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
+            <span>LIVE</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Main content area */}
+      <div className="grid md:grid-cols-5 gap-6">
+        {/* Playlist - Left Column */}
+        <div className="md:col-span-2 bg-gray-800 p-4 rounded-lg">
+          <h2 className="text-lg font-bold mb-4 flex items-center">
+            <Music className="mr-2 text-gray-400" size={18} />
+            Your Brainwave Playlist
+          </h2>
+          
+          <div className="space-y-2 max-h-96 overflow-y-auto">
+            {melodies.map((melody, index) => (
+              <div 
+                key={index} 
+                className={`flex items-center justify-between p-3 rounded-md hover:bg-gray-700 cursor-pointer transition-all ${currentMelody === index ? `bg-gray-700 border-l-4 border-${melody.brainwave === 'Alpha' ? 'blue' : melody.brainwave === 'Theta' ? 'purple' : 'pink'}-500` : ''}`}
+                onClick={() => {
+                  setCurrentMelody(index);
+                  setProgress(0);
+                  setIsPlaying(true);
+                }}
+              >
+                <div className="flex items-center">
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${currentMelody === index ? `bg-gradient-to-br ${getBrainwaveColor(melody.brainwave)}` : 'bg-gray-600'}`}>
+                    {index + 1}
+                  </div>
+                  <div className="ml-3">
+                    <p className="font-medium">{melody.title}</p>
+                    <p className="text-xs text-gray-400">{melody.description}</p>
+                  </div>
+                </div>
+                <div className="flex flex-col items-end">
+                  <span className="text-xs text-gray-300">{melody.duration}</span>
+                  <div className="flex items-center mt-1">
+                    <div className="flex -space-x-2 mr-2">
+                      {Array(3).fill().map((_, i) => (
+                        <div 
+                          key={i} 
+                          className="w-4 h-4 rounded-full border border-gray-800" 
+                          style={{ 
+                            backgroundColor: ['#4F46E5', '#9333EA', '#EC4899'][i % 3],
+                            zIndex: 3-i
+                          }}
+                        ></div>
+                      ))}
+                    </div>
+                    <span className="text-xs text-green-400">
+                      {Math.floor(melody.listeners * 0.7 + Math.random() * 10)} playing now
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          <div className="mt-4 p-3 bg-gray-700 bg-opacity-50 rounded-md">
+            <div className="flex justify-between items-center">
+              <div className="flex items-center">
+                <BarChart2 className="text-gray-400 mr-2" size={16} />
+                <div className="text-xs text-gray-400">
+                  Members log manifestation results after using each one-minute melody for their 21-day program
+                </div>
+              </div>
+              <button className="px-2 py-1 bg-gray-600 rounded text-xs text-gray-300">
+                Log Your Results
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        {/* Center and Right Columns */}
+        <div className="md:col-span-3">
+          {/* Now Playing */}
+          <div className="bg-gray-800 p-4 rounded-lg mb-6">
+            <h2 className="text-sm font-medium text-gray-400 mb-4">NOW PLAYING</h2>
+            
+            <div className="flex items-center mb-4">
+              <div className={`w-16 h-16 bg-gradient-to-br ${getBrainwaveColor(melodies[currentMelody].brainwave)} rounded-md flex items-center justify-center`}>
+                <Headphones size={32} />
+              </div>
+              <div className="ml-4">
+                <h2 className="text-xl font-bold">{melodies[currentMelody].title}</h2>
+                <p className={`text-sm ${getBrainwaveTextColor(melodies[currentMelody].brainwave)}`}>
+                  {melodies[currentMelody].brainwave} Brainwave • {melodies[currentMelody].description}
+                </p>
+              </div>
+            </div>
+
+            <div className="mb-4">
+              <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
+                <div 
+                  className={`h-full bg-gradient-to-r ${getBrainwaveColor(melodies[currentMelody].brainwave)} rounded-full`}
+                  style={{ width: `${progress}%` }}
+                ></div>
+              </div>
+              <div className="flex justify-between mt-1">
+                <span className="text-sm text-gray-400">{formatTime(melodies[currentMelody].duration)}</span>
+                <span className="text-sm text-gray-400">{melodies[currentMelody].duration}</span>
+              </div>
+            </div>
+
+            <div className="flex justify-between items-center">
+              <div className="flex items-center">
+                <Volume2 className="text-gray-400 mr-2" size={20} />
+                <div className="w-20 h-1 bg-gray-700 rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-gray-400 rounded-full" 
+                    style={{ width: `${volume}%` }}
+                  ></div>
+                </div>
+              </div>
+              
+              <div className="flex items-center space-x-3">
+                <button className="text-gray-400 hover:text-white transition">
+                  <SkipBack size={24} />
+                </button>
+                <button 
+                  className={`w-12 h-12 bg-gradient-to-r ${getBrainwaveColor(melodies[currentMelody].brainwave)} rounded-full flex items-center justify-center transition transform hover:scale-105`}
+                  onClick={() => setIsPlaying(!isPlaying)}
+                >
+                  {isPlaying ? <Pause size={24} /> : <Play size={24} className="ml-1" />}
+                </button>
+                <button className="text-gray-400 hover:text-white transition">
+                  <SkipForward size={24} />
+                </button>
+              </div>
+              
+              <div className="flex items-center">
+                <button className="text-gray-400 hover:text-pink-400 transition">
+                  <Heart size={20} />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Live Activity Feed */}
+          <div className="bg-gray-800 p-4 rounded-lg">
+            <h2 className="text-lg font-bold mb-4 flex items-center">
+              <span className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
+              Manifestation Tracker
+            </h2>
+            
+            <div className="space-y-3 max-h-60 overflow-y-auto">
+              {recentActivity.map((item, index) => (
+                <div key={index} className="flex items-center justify-between bg-gray-700 p-3 rounded-md">
+                  <div className="flex items-center">
+                    <div className={`w-8 h-8 bg-gradient-to-br ${getBrainwaveColor(item.brainwave)} rounded-full flex items-center justify-center text-xs font-bold`}>
+                      {item.user.split(' ')[0][0]}{item.user.split(' ')[1][0]}
+                    </div>
+                    <div className="ml-3">
+                      <div className="flex items-center">
+                        <p className="font-medium">{item.user}</p>
+                        <span className="ml-2 text-xs text-gray-400">Week {Math.floor(Math.random() * 8) + 1}</span>
+                      </div>
+                      <p className="text-xs text-gray-300 font-medium">{item.activity}</p>
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-end">
+                    <div className="flex items-center mb-1">
+                      <div className="px-2 py-0.5 mr-2 bg-gray-600 rounded-full text-xs">
+                        {item.day}
+                      </div>
+                      <span className="text-xs text-gray-400">{item.week}</span>
+                    </div>
+                    <div className="flex items-center">
+                      <span className={`text-xs ${getBrainwaveTextColor(item.brainwave)}`}>
+                        Used {item.brainwave} Melody
+                      </span>
+                      <span className="ml-1 text-xs text-green-400 font-medium">✓ Verified</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ManifestingMelodiesPlayer;
